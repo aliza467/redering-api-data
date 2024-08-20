@@ -14,7 +14,7 @@ const CreateUser = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-    axios.post("http://localhost:4567/users", createdata) 
+    axios.post("http://localhost:3000/users", createdata) 
     .then((res)=>alert("User created successully"))   
     .catch((err)=>console.log(err))
     };

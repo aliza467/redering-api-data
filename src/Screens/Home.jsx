@@ -12,7 +12,7 @@ const Home = () => {
   useEffect(() => {
     axios
 
-      .get("http://localhost:4567/users")
+      .get("http://localhost:3000/users")
       .then((res) => setUserData(res.data))
       .catch((err) => console.log(err));
   }, []);

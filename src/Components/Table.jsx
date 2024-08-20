@@ -10,6 +10,8 @@ import Paper from "@mui/material/Paper";
 import { lightBlue } from "@mui/material/colors";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 
@@ -34,11 +36,24 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function Tables({ data }) {
+  const navigate= useNavigate()
+
+  const handleDeleteSubmit=(id)=>{
+    axios.delete("http://localhost:3000/users/"+id)
+    .then((res)=>{
+      alert("user deleted")
+      .catch((err) => {
+        console.log(err);
+      });  
+    })
+  }
   return (
+    
     <TableContainer component={Paper}>
       <Table sx={{padding:"90px", minWidth: 700, margin:"0px", backgroundColor:"lightBlue" }} aria-label="customized table">
         <TableHead >
           <TableRow >
+          <StyledTableCell>ID</StyledTableCell>
             <StyledTableCell >Name</StyledTableCell>
             <StyledTableCell align="right">Email</StyledTableCell>
             <StyledTableCell align="right">Username</StyledTableCell>   
@@ -56,8 +71,9 @@ export default function Tables({ data }) {
               <StyledTableCell align="right">{e.username}</StyledTableCell>
               <StyledTableCell align="right">{e.phone}</StyledTableCell>
               <StyledTableCell align="right">
-                <DeleteIcon sx={{ paddingRight: 3, color: "red" }} />
-                <EditIcon sx={{ color: "blue" }} />
+                <DeleteIcon onClick={() => handleDeleteSubmit(e.id)}
+                 sx={{ paddingRight: 3, color: "red" }} />
+                <EditIcon  onClick={() => navigate(`/editUser/${e.id}`)} sx={{ color: "blue" }} />
               </StyledTableCell>
               
             </StyledTableRow>
